@@ -34,7 +34,6 @@ body {
     position: fixed;
     bottom: 2vw;
 	background-color: #fff;
-/*	height: 55vh;*/
 	width: 96vw;
 	z-index: 99;
     left: 0;
@@ -51,6 +50,8 @@ body {
 	padding: 30px;
 }
 
+
+/*   Index page   */
 
 .index-title {
 	margin: 0;
@@ -108,4 +109,13 @@ body {
 
 #icon-map {
 	margin-right: 3px;
+}
+
+
+
+/*   Upcoming page   */
+.upcoming-title {
+	margin: 0;
+	z-index: 99;
+	position: fixed;
 }
