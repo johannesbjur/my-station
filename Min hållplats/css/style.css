@@ -59,7 +59,6 @@ body {
 }
 
 .card-inner {
-	text-align: center;
 	padding: 5vw;
 	padding-left: 7vw;
 	padding-right: 7vw;
@@ -87,6 +86,7 @@ body {
 
 .index-card {
 	height: 60vh;
+	text-align: center;
 
 }
 
@@ -173,6 +173,9 @@ body {
 
 }
 
+.upcoming-card {
+	height: 60vh;
+}
 
 .back-arrow {
 	z-index: 4;
@@ -194,6 +197,73 @@ body {
 
 }
 
+.drag-line {
+	display: flex;
+	margin-bottom: 30px;
+}
+
+.drag-line-icon {
+	margin: auto;
+}
+
 .route-item {
+	height: 90px;
+
+	border: 1px solid #D1D1D1;
+	border-radius: 20px;
+	font-size: 4vw;
+
+}
+
+.route-icon{
+	height: 30px;
+	margin: auto;
+
+}
+
+.route-icon-container {
+	height: 100%;
+    display: flex;
+    float: left;
+    margin-left: 25px;
+}
+
+.route-time {
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20px;
 	
+}
+
+.route-item p {
+	margin: 0;
+}
+
+.route-line {
+	background-color: #4AB7FF;
+	color: #fff;
+	width: 39px;
+	height: 22px;
+	display: flex;
+	border-radius: 20px;
+	margin-top: 10px;
+
+}
+
+.route-line p {
+	margin: auto;
+	font-weight: bold;
+}
+
+.forward-arrow {
+	float: right;
+	margin: auto;
+}
+
+.forward-arrow-container {
+	height: 100%;
+    display: flex;
+    float: right;
+    margin-right: 20px;
+
 }
