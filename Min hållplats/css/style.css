@@ -27,7 +27,7 @@ body {
 
 .wave {
 	position: absolute;
-	top: 20vh;
+	top: 17vh;
 	background: url(../img/wave.svg);
 	z-index: 3;
 	height: 30vh;
@@ -52,14 +52,17 @@ body {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 30px;
+    border-radius: 20px;
     font-size: 20px;
 	color: #616161;
+	
 }
 
 .card-inner {
 	text-align: center;
-	padding: 30px;
+	padding: 5vw;
+	padding-left: 7vw;
+	padding-right: 7vw;
 }
 
 .app-title{
@@ -77,16 +80,21 @@ body {
 
 .index-card-title {
 	margin: 0;
-	margin-top: 20px;
+	margin-top: 3vh;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 25px;
+}
+
+.index-card {
+	height: 60vh;
+
 }
 
 .index-input {
 
     border: none;
     width: 100%;
-    font-size: 20px;
+    font-size: 4vw;
 
 }
 
@@ -94,21 +102,23 @@ body {
 	display: block;
 	text-align: left;
 	margin-left: 15px;
-	margin-top: 30px;
+	margin-top: 4vh;
 	margin-bottom: 10px;
+	font-size: 4vw;
 }
 
 .index-submit {
 	width: 125px;
-	height: 50px;
+	height: 43px;
 	border-radius: 20px;
-	background: linear-gradient(140deg, #287cc4 0%, #87e2ff 100%);
 	color: #fff;
 	border: none;
-	margin-top: 50px;
+	margin-top: 5vh;
 	font-size: 20px;
 	font-family: Montserrat;
 	font-weight: bold;
+	background: linear-gradient(140deg,#39a3ff 20%, #00f6ff 100%);
+
 
 }
 
@@ -119,7 +129,10 @@ body {
 	box-shadow: none;
     border-radius: 20px;
     border: 1px solid #B2B2B2;
-    padding: 20px;
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+    padding-left: 6vw;
+    padding-right: 6vw;
 
 }
 
@@ -129,8 +142,16 @@ body {
 
 #icon-map {
 	margin-right: 3px;
+	height: 4vw;
+	vertical-align: middle;
+	margin: auto;
 }
 
+
+#icon-location{
+	height: 5vw;
+
+}
 
 
 /*   Upcoming page   */
@@ -139,7 +160,8 @@ body {
    	margin: 0;
    	margin-left: 10vw;
    	margin-right: 10vw;
-   	line-height: 50px;
+   	line-height: 35px;
+   	font-size: 8vw;
 }
 
 .upcoming-title-container {
@@ -148,4 +170,30 @@ body {
     z-index: 4;
     text-align: center;
     width: 100%;
+
+}
+
+
+.back-arrow {
+	z-index: 4;
+    margin: auto;
+    display: inline-flex;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.back-arrow-button {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	z-index: 4;
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 20px;
+	margin-left: 10px;
+
+}
+
+.route-item {
+	
 }
