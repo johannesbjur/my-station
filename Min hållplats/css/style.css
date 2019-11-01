@@ -6,15 +6,16 @@ body {
 }
 
 .gradient {
-	background: linear-gradient( 120deg, rgba(40, 124, 196, 0.53) 0%, rgba(135, 226, 255, 0.45) 100%);
+	background: linear-gradient( 90deg, #39A3FF, #00F6FF);
 	z-index: 2;
 	position: absolute;
-	height: 100vh;
+	top: 45vh;
+	height: 55vh;
 	width: 100vw;
 }
 
 .background {
-	background: url(../img/background2.svg);
+	background-color: #fff;
 	height: 100vh;
 	width: 100vw;
 	background-repeat: no-repeat;
@@ -22,6 +23,17 @@ body {
 	background-position: center center;
 	z-index: 1;
 	position: absolute;
+}
+
+.wave {
+	position: absolute;
+	top: 20vh;
+	background: url(../img/wave.svg);
+	z-index: 3;
+	height: 30vh;
+	width: 100vw;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .container {
@@ -50,17 +62,25 @@ body {
 	padding: 30px;
 }
 
+.app-title{
+	position: absolute;
+	color: #39C2FF;
+	z-index: 4;
+	text-align: center;
+   	width: 100%;
+   	top: 7vh;
+   	font-weight: bold;
+}
+
 
 /*   Index page   */
 
-.index-title {
+.index-card-title {
 	margin: 0;
 	margin-top: 20px;
 	font-weight: bold;
 	font-size: 30px;
 }
-
-
 
 .index-input {
 
@@ -115,7 +135,17 @@ body {
 
 /*   Upcoming page   */
 .upcoming-title {
-	margin: 0;
-	z-index: 99;
-	position: fixed;
+   	color: #39C2FF;
+   	margin: 0;
+   	margin-left: 10vw;
+   	margin-right: 10vw;
+   	line-height: 50px;
+}
+
+.upcoming-title-container {
+	position: absolute;
+	top: 7vh;
+    z-index: 4;
+    text-align: center;
+    width: 100%;
 }
