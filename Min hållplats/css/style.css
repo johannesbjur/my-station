@@ -74,6 +74,10 @@ body {
    	font-weight: bold;
 }
 
+.no-margin {
+	margin: 0;
+}
+
 
 /*   Index page   */
 
@@ -118,8 +122,6 @@ body {
 	font-family: Montserrat;
 	font-weight: bold;
 	background: linear-gradient(140deg,#39a3ff 20%, #00f6ff 100%);
-
-
 }
 
 .input-container {
@@ -133,7 +135,6 @@ body {
     padding-bottom: 4vw;
     padding-left: 6vw;
     padding-right: 6vw;
-
 }
 
 .input-icon {
@@ -150,7 +151,6 @@ body {
 
 #icon-location{
 	height: 5vw;
-
 }
 
 
@@ -225,7 +225,7 @@ body {
 	height: 100%;
     display: flex;
     float: left;
-    margin-left: 25px;
+    margin-left: 6vw;
 }
 
 .route-time {
@@ -266,4 +266,144 @@ body {
     float: right;
     margin-right: 20px;
 
+}
+
+
+/*   Route info page    */
+
+
+.route-info-card {
+	bottom: 50vh;
+	margin-bottom: -250px;
+
+}
+
+.route-info {
+	margin-top: 15px;
+
+}
+
+.route-time-info {
+	display: inline-block;
+	margin-left: 20px;
+
+}
+
+.large-route-icon {
+	height: 6vh;
+	/*margin: auto;*/
+}
+
+#run-icon {
+	height: 4vh;
+}
+
+.info-icons {
+	margin-left: 10vw;
+}
+
+.time-title {
+	margin: 0;
+	font-size: 25px;
+}
+
+.route-info-line {
+	font-size: 15px;
+	margin-top: 15px;
+}
+
+.walking-info {
+	margin-top: 30px;
+}
+
+.walking-text {
+	font-size: 20px;
+	margin-left: 20px;
+	display: inline-block;
+}
+
+.walking-text p {
+	margin: 0;
+}
+
+.walking-desc {
+	font-size: 15px;
+	margin-top: 10px;
+	line-height: 23px;
+
+}
+
+.activate-btn {
+	width: 150px;
+	height: 50px;
+	margin: 0;
+	border-radius: 30px;
+}
+
+.activate-btn-container {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+
+/*   Popup   */
+
+.popup-container {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	width:100vw;
+	height:100vh;
+}
+
+.popup-card {
+	width: 96vw;
+	background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    font-size: 20px;
+	color: #616161;
+}
+
+.popup-title {
+	color: #39C2FF;
+	font-size: 20px;
+	margin: 0;
+	margin-top: 2vh;
+	text-align: center;
+}
+
+.popup-alarm-time {
+	font-size: 22px;
+	margin: 0;
+	margin-top: 2vh;
+	text-align: center;
+
+}
+
+.accept-btn-container {
+	text-align: center;
+	margin-top: 5vh;
+	margin-bottom: 2vh;
+
+}
+
+.accept-btn {
+	border-radius: 30px;
+	margin: 0;
+}
+
+.popup-route-info {
+	margin-top: 30px;
+}
+
+.popup-icon {
+	margin-left: 15vw;
+}
+
+.popup-time-title {
+	margin: 0;
+    font-size: 20px;
 }
