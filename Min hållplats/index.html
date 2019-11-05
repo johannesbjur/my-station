@@ -28,7 +28,7 @@
 
 				<div class="form-container">
 
-					<form>
+					<form id="index-form">
 
 						<h2 class="index-card-title">Välj Hållplats</h2>
 
@@ -38,7 +38,8 @@
 							<label class="index-label">Från:</label>
 
 							<div class="input-container">
-								<input class="index-input" type="text" name="from-station" id="from-station" placeholder="Mariatorget">
+								<input id="from-station" class="index-input" name="from-station" type="text" placeholder="Mariatorget">
+								<input id="from-station-id" name="from-station-id" type="hidden">
 								<img id="icon-location" class="input-icon" src="img/ic_my_location.svg">
 							</div>
 
@@ -50,13 +51,16 @@
 
 							<div class="input-container">
 								
-								<input class="index-input" type="text" name="to-station" id="to-station" placeholder="Liljeholmen">
+								<input id="to-station" class="index-input" name="to-station" type="text" placeholder="Liljeholmen">
+								<input id="to-station-id" name="to-station-id" type="hidden">
 								<img id="icon-map" class="input-icon" src="img/ic_map.svg">
 							</div>
 
 						</div>
 
-						<button class="index-submit" type="submit">Sök</button>
+						<input id="user-location" name="user-location" type="hidden">
+
+						<button id="index-submit" class="index-submit" type="submit">Sök</button>
 
 					</form>
 				</div>
@@ -69,6 +73,7 @@
 	</div>
 
 	<script src="js/main.js"></script>
+	<script src="js/index.js"></script>
 
 	
 </body>
