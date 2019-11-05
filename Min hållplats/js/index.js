@@ -62,10 +62,10 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 			switch( elements[i].name )
 			{
 				case 'from-station': 
-					formData['orginName'] = elements[i].value;
+					formData['originName'] = elements[i].value;
 					break;
 				case 'from-station-id': 
-					formData['orginId'] = elements[i].value;
+					formData['originId'] = elements[i].value;
 					break;
 				case 'to-station': 
 					formData['destName'] = elements[i].value;
@@ -155,8 +155,8 @@ function postRouteDetails( formData ) {
 
 	console.log( formData );
 
-	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&orginName=' 
-	+ formData['orginName'] + '&orginId=' + formData['orginId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] + formData['coords'];
+	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&originName=' 
+	+ formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] + formData['coords'];
 
 	console.log( url)
 

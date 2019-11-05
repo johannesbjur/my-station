@@ -208,11 +208,10 @@ body {
 
 .route-item {
 	height: 90px;
-
 	border: 1px solid #D1D1D1;
 	border-radius: 20px;
 	font-size: 4vw;
-
+	margin-top: 20px;
 }
 
 .route-icon{
