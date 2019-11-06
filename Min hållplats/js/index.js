@@ -156,7 +156,7 @@ function postRouteDetails( formData ) {
 	console.log( formData );
 
 	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&originName=' 
-	+ formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] + formData['coords'];
+	+ formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] + '&coords=' + formData['coords'];
 
 	console.log( url)
 

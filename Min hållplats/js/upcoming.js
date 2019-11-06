@@ -43,13 +43,12 @@ function getUpcoming ( userData ) {
 	.then( ( resp ) => resp.json() )
 	.then( function ( data ) {
 
-		console.log(data)
-
 		for( var i = 0 ; i < data['Trip'].length; i++ )
 		{
-			drawUpcomingItem( data['Trip'][i] );
+			drawUpcomingItem( data['Trip'][i], i );
 		}
 		
+		document.getElementById('gradient').style.height = document.getElementById('upcoming-card').offsetHeight + 'px';
 
 	}).catch( function ( error ) {
 
@@ -57,31 +56,29 @@ function getUpcoming ( userData ) {
 	});
 }
 
-function drawUpcomingItem( trip ) {
+function drawUpcomingItem( trip, key ) {
 
 	var trip = trip['LegList']['Leg'][0]
 
-	var line_style = '';
+	var line_class = '';
 
 	if ( trip['Product']['name'].includes('grön') )
 	{
-		line_style = 'style="background-color: #43CC23; !important"';
+		line_class = 'route-line-green';
 	}
 	else if ( trip['Product']['name'].includes('röd') )
 	{
-		line_style = 'style="background-color: #FF4A4A; !important"';
+		line_class = 'route-line-red';
 	}
 
-	console.log(trip)
-
-	var upcoming_item = 
-		'<div class="route-item">\
+	var upcoming_item =
+		'<div id="route-item-' + key + '" class="route-item" onclick="routeItemClick(this)">\
 			<div class="route-icon-container">\
 				<img class="route-icon" src="./img/route_icon.svg">\
 			</div>\
 			<div class="route-time">\
-				<p><b>' + trip['Origin']['time'].substring(0, 5) + '</b> - ' + trip['Destination']['time'].substring(0, 5) + '</p>\
-				<div class="route-line" ' + line_style + '>\
+				<p class="route-time-p"><b>' + trip['Origin']['time'].substring(0, 5) + '</b> - ' + trip['Destination']['time'].substring(0, 5) + '</p>\
+				<div class="route-line ' + line_class + '">\
 					<p>' + trip['Product']['line'] + '</p>\
 				</div>\
 			</div>\
@@ -90,14 +87,32 @@ function drawUpcomingItem( trip ) {
 			</div>\
 		</div>';
 
-
 	document.getElementById('route-item-container').innerHTML += upcoming_item;
+}
 
 
+function routeItemClick( element ) {
 
 
+	// Gets time from hmtl element and removes spaces and everything between < and >
+	var item_time = element.children[1].children[0].innerHTML.trim().replace(/<.*?>/g, '');;
 
+	var line = element.children[1].children[1].innerHTML.trim().replace(/<.*?>/g, '');
+	var line_class = element.children[1].children[1].className.split(' ')[1];
 
+	var route = document.getElementById('upcoming-title').innerHTML;
 
+	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=user1_specific&xmail=bjurstromerjohannes@gmail.com&route='
+	+ route + '&time=' + item_time + '&line=' + line + '&line_class=' + line_class;
+
+	fetch( url )
+	.then( function ( data ) {
+
+		window.location.href = './route_info.html';
+
+	}).catch( function ( error ) {
+
+		console.log( error );
+	});
 
 }

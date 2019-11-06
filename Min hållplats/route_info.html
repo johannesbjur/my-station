@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Min hållplats</title>
+	<title>Route info</title>
 	<meta name="description" content="The HTML5 Herald">
 	<meta name="author" content="SitePoint">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 	<div class="wave"></div>
 
 
-	<div class="back-arrow-button">
+	<div id="route-info-back-arrow" class="back-arrow-button">
 		<div class="back-arrow">
 			<img src="./img/back_arrow.svg">
 		</div>
@@ -29,7 +29,7 @@
 	<div class="container">
 
 		<div class="upcoming-title-container">
-			<h1 class="upcoming-title">Mariatorget - Liljeholmen</h1>
+			<h1 id="upcoming-title" class="upcoming-title"></h1>
 		</div>
 
 		<div class="card route-info-card">
@@ -46,10 +46,10 @@
 
 
 					<div class="route-time-info">
-						<p class="time-title"><b>12:34</b> - 12:40</p>
+						<p id="time-title" class="time-title"></p>
 
-						<div class="route-line route-info-line">
-							<p>12</p>
+						<div id="route-line" class="route-line route-info-line">
+							<p id="line-nr"></p>
 						</div>
 					</div>
 					
@@ -92,6 +92,7 @@
 	</div>
 
 	<script src="js/main.js"></script>
+	<script src="js/route_info.js"></script>
 
 	
 </body>
