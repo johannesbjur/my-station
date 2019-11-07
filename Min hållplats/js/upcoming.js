@@ -29,15 +29,31 @@ function getUserData() {
 }
 
 
-function getUpcoming ( userData ) {
+function getUpcoming ( user_data ) {
 
 	// TODO better check
-	if ( ( userData['originId'] || userData['destId'] ) == 'undefined') 
+	if ( ( user_data['originId'] || user_data['destId'] ) == 'undefined') 
 	{
 		window.location.href = './index.html';
 	}
 
-	var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&originExtId=' + userData['originId'] + '&destExtId=' + userData['destId'];
+
+	// TODO remove
+	user_data['long'] = '18.065994';
+	user_data['lat'] = '59.315580';
+
+	if ( user_data['long'] == 'undefined' && user_data['long'] == 'undefined' ) 
+	{
+		// Trip API request without coordinates
+		var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&originExtId=' 
+		+ user_data['originId'] + '&destExtId=' + user_data['destId'];
+	}
+	else
+	{
+		// Trip API request with coordinates
+		var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&destId='
+		+ user_data['destId'] + '&originCoordLat=' + user_data['lat'] + '&originCoordLong=' + user_data['long'] + '&originWalk=1&via=vald&viaId=' + user_data['originId'];
+	}
 
 	fetch( url )
 	.then( ( resp ) => resp.json() )
@@ -58,15 +74,29 @@ function getUpcoming ( userData ) {
 
 function drawUpcomingItem( trip, key ) {
 
-	var trip = trip['LegList']['Leg'][0]
+	var route = '';
+
+	var walk_time = 0;
+
+	for ( var i = 0 ; i < trip['LegList']['Leg'].length; i++ ) 
+	{
+		if ( trip['LegList']['Leg'][i]['type'] !== 'WALK' ) 
+		{
+			route = trip['LegList']['Leg'][i]
+		}
+		else
+		{
+			walk_time += parseInt(trip['LegList']['Leg'][i]['duration'].replace(/\D/g,''));
+		}
+	}
 
 	var line_class = '';
 
-	if ( trip['Product']['name'].includes('grön') )
+	if ( route['Product']['name'].includes('grön') )
 	{
 		line_class = 'route-line-green';
 	}
-	else if ( trip['Product']['name'].includes('röd') )
+	else if ( route['Product']['name'].includes('röd') )
 	{
 		line_class = 'route-line-red';
 	}
@@ -77,14 +107,15 @@ function drawUpcomingItem( trip, key ) {
 				<img class="route-icon" src="./img/route_icon.svg">\
 			</div>\
 			<div class="route-time">\
-				<p class="route-time-p"><b>' + trip['Origin']['time'].substring(0, 5) + '</b> - ' + trip['Destination']['time'].substring(0, 5) + '</p>\
+				<p class="route-time-p"><b>' + route['Origin']['time'].substring(0, 5) + '</b> - ' + route['Destination']['time'].substring(0, 5) + '</p>\
 				<div class="route-line ' + line_class + '">\
-					<p>' + trip['Product']['line'] + '</p>\
+					<p>' + route['Product']['line'] + '</p>\
 				</div>\
 			</div>\
 			<div class="forward-arrow-container">\
 				<img class="forward-arrow" src="./img/forward_arrow.svg">\
 			</div>\
+			<input id="walk-time-' + key + '" type="hidden" value="' + walk_time + '">\
 		</div>';
 
 	document.getElementById('route-item-container').innerHTML += upcoming_item;
@@ -93,17 +124,20 @@ function drawUpcomingItem( trip, key ) {
 
 function routeItemClick( element ) {
 
+	console.log(element.children[3].value)
 
-	// Gets time from hmtl element and removes spaces and everything between < and >
-	var item_time = element.children[1].children[0].innerHTML.trim().replace(/<.*?>/g, '');;
-
-	var line = element.children[1].children[1].innerHTML.trim().replace(/<.*?>/g, '');
-	var line_class = element.children[1].children[1].className.split(' ')[1];
+	// Gets values from hmtl elements and removes spaces and everything between < and >
+	var item_time 	= element.children[1].children[0].innerHTML.trim().replace(/<.*?>/g, '');;
+	var line 		= element.children[1].children[1].innerHTML.trim().replace(/<.*?>/g, '');
+	var line_class 	= element.children[1].children[1].className.split(' ')[1];
+	var walk_time 	= element.children[3].value;
 
 	var route = document.getElementById('upcoming-title').innerHTML;
 
 	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=user1_specific&xmail=bjurstromerjohannes@gmail.com&route='
-	+ route + '&time=' + item_time + '&line=' + line + '&line_class=' + line_class;
+	+ route + '&time=' + item_time + '&line=' + line + '&line_class=' + line_class + '&walk_time=' + walk_time;
+
+	console.log(url)
 
 	fetch( url )
 	.then( function ( data ) {

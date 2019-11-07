@@ -56,18 +56,22 @@
 				</div>
 
 
-				<div class="walking-info">
+				<div id="walking-info" class="walking-info">
 
-					<div class="route-icon-container info-icons">
-						<img id="run-icon" src="./img/ic_run.svg">
-					</div>
+					<div id="walking-info-inner">
 
-					<div class="walking-text">
+						<div class="route-icon-container info-icons">
+							<img id="run-icon" src="./img/ic_run.svg">
+						</div>
 
-						<p><b>3 Minutes</b></p>
+						<div class="walking-text">
 
-						<div class="walking-desc">
-							<p>Walkign distance <br>to station</p>
+							<p id="walk-time-title"></p>
+
+							<div class="walking-desc">
+								<p>Walkign distance <br>to station</p>
+							</div>
+
 						</div>
 
 					</div>
@@ -75,21 +79,67 @@
 				</div>
 
 				<div class="activate-btn-container">
-					<button class="index-submit activate-btn" type="submit">Aktivera</button>
+					<button id="activate-btn" class="index-submit activate-btn" type="submit">Aktivera</button>
 				</div>
-
-
-				
-
-
 
 			</div>
 
 		</div>
 
-		
-		
 	</div>
+
+
+
+
+
+	
+
+	<div id="popup-container" class="popup-container">
+
+		<div id="popup-background" class="popup-background"></div>
+
+		<div class="popup-card">
+
+			<div class="card-inner">
+
+				<h2 class="popup-title">Du kommer att bli <br>påmind att gå:</h2>
+
+				<h2 class="popup-alarm-time">12:25</h2>
+
+
+
+
+				<div class="route-info popup-route-info">
+
+					<div class="route-icon-container popup-icon">
+						<img class="large-route-icon" src="./img/route_icon.svg">
+					</div>
+
+					<div class="route-time-info">
+						<p class="popup-time-title"><b>12:34</b> - 12:40</p>
+
+						<div class="route-line route-info-line">
+							<p>12</p>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="accept-btn-container">
+					<button class="index-submit accept-btn" type="submit">OK</button>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	
+
+
+
+
 
 	<script src="js/main.js"></script>
 	<script src="js/route_info.js"></script>

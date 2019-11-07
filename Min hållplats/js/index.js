@@ -73,14 +73,19 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 				case 'to-station-id': 
 					formData['destId'] = elements[i].value;
 					break;
-				case 'user-location':
-					formData['coords'] = elements[i].value;
+				case 'user-location-long':
+					formData['long'] = elements[i].value;
+					break;
+				case 'user-location-lat':
+					formData['lat'] = elements[i].value;
 					break;
 				default:
 					break;
 			}
 		}
 	}
+
+	console.log(formData['coords'])
 
 	postRouteDetails( formData );
 
@@ -138,9 +143,10 @@ function getNearbyStation ( lat, long ) {
 		console.log('lat: ' + lat , 'long: ' + long )
 		console.log( data['stopLocationOrCoordLocation'] )
 
-		document.getElementById("from-station").value 		= data['stopLocationOrCoordLocation'][0]['StopLocation']['name'];
-		document.getElementById("from-station-id").value 	= data['stopLocationOrCoordLocation'][0]['StopLocation']['mainMastExtId'];
-		document.getElementById("user-location").value		= '&lat=' + lat + '&long=' + long;
+		document.getElementById("from-station").value 			= data['stopLocationOrCoordLocation'][0]['StopLocation']['name'];
+		document.getElementById("from-station-id").value 		= data['stopLocationOrCoordLocation'][0]['StopLocation']['mainMastExtId'];
+		document.getElementById("user-location-lat").value		= lat;
+		document.getElementById("user-location-long").value		= long;
 
 		return data;
 
@@ -155,8 +161,9 @@ function postRouteDetails( formData ) {
 
 	console.log( formData );
 
-	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&originName=' 
-	+ formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] + '&coords=' + formData['coords'];
+	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com' 
+	+ '&originName=' + formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] 
+	+ '&lat=' + formData['lat']+ '&long=' + formData['long'];
 
 	console.log( url)
 

@@ -3,6 +3,20 @@ document.getElementById("route-info-back-arrow").addEventListener( "click", func
 	window.location.href = './upcoming.html';
 });
 
+
+
+document.getElementById("activate-btn").addEventListener( "click", function( event ) {
+
+	document.getElementById('popup-container').style.display = 'flex';
+});
+
+document.getElementById("popup-background").addEventListener( "click", function( event ) {
+
+	document.getElementById('popup-container').style.display = 'none';
+});
+
+
+
 getRouteInfo();
 
 function getRouteInfo() {
@@ -13,7 +27,7 @@ function getRouteInfo() {
 	.then( ( resp ) => resp.json() )
 	.then( function ( data ) {
 
-		pageUpdate(data['data'][0])
+		pageLoad( data['data'][0] );
 
 	}).catch( function ( error ) {
 
@@ -22,21 +36,28 @@ function getRouteInfo() {
 
 }
 
-function pageUpdate( item_data ) {
-
-	console.log(item_data)
+function pageLoad( item_data ) {
 
 	document.getElementById('upcoming-title').innerHTML = item_data['route'];
 
 	var time = item_data['time'].replace(/\s/g, '').split('-');
 
-	document.getElementById('time-title').innerHTML = '<b>' + time[0] + '</b> - ' + time[1];
+	document.getElementById('time-title').innerHTML 	= '<b>' + time[0] + '</b> - ' + time[1];
+	document.getElementById('line-nr').innerHTML 		= item_data['line'];
+	document.getElementById('route-line').className 	+= ' ' + item_data['line_class'];
+	document.getElementById('walk-time-title').innerHTML = '<b>' + item_data['walk_time'] + ' Minutes</b>';
 
-	console.log()
 
-	document.getElementById('line-nr').innerHTML = item_data['line'];
 
-	document.getElementById('route-line').className += ' ' + item_data['line_class']
-	
+	var date = new Date();
+	var departure = time[0].split(':');
 
+	// If you are not gonna be able to make a departure color the walk time title red
+	if ( date.getHours() >= parseInt( departure[0] ) && ( date.getMinutes() + parseInt( item_data['walk_time'] ) ) >= parseInt( departure[1] ) ) 
+	{
+		document.getElementById('walk-time-title').style.color = '#FF4A4A';
+	}
 }
+
+
+
