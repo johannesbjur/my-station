@@ -7,28 +7,9 @@ navigator.geolocation.getCurrentPosition(
 );
 
 
-var startDateTo = 0;
-
-document.getElementById("to-station").addEventListener( "input", function( event ) {
-
-	var value = document.getElementById("to-station").value;
-	var nowDateTo = new Date();
-
-	if ( value.length >= 3 && startDateTo + 5000 < nowDateTo.getTime() )
-	{
-		startDateTo = new Date().getTime();
-
-		searchStations( value, 'to' )	
-		
-	}
-	
-
-}, false);
-
-
-
 var startDateFrom = 0;
 
+// Search input event listener for origin
 document.getElementById("from-station").addEventListener( "input", function( event ) {
 
 	var value = document.getElementById("from-station").value;
@@ -49,6 +30,27 @@ document.getElementById("from-station").addEventListener( "input", function( eve
 
 
 
+
+var startDateTo = 0;
+
+// Search input event listener for destination
+document.getElementById("to-station").addEventListener( "input", function( event ) {
+
+	var value = document.getElementById("to-station").value;
+	var nowDateTo = new Date();
+
+	if ( value.length >= 3 && startDateTo + 5000 < nowDateTo.getTime() )
+	{
+		startDateTo = new Date().getTime();
+
+		searchStations( value, 'to' );
+	}
+
+}, false);
+
+
+
+// Event listener for search form
 document.getElementById("index-form").addEventListener( "submit", function( event ) {
 
 	event.preventDefault()
@@ -122,8 +124,6 @@ function searchStations ( searchstring, input ) {
 		}
 
 
-
-
 	}).catch( function ( error ) {
 
 		console.log(error);
@@ -132,6 +132,8 @@ function searchStations ( searchstring, input ) {
 
 }
 
+
+// Gets nearby stations from trafiklab api
 function getNearbyStation ( lat, long ) {
 
 	var url = 'https://cors-anywhere.herokuapp.com/http://api.sl.se/api2/nearbystopsv2.json?key=053b6cc6d33946c1898645b6cf0b551c&originCoordLat=' + lat + '&originCoordLong=' + long;
@@ -158,6 +160,8 @@ function getNearbyStation ( lat, long ) {
 	});
 }
 
+
+// Posts form data to server
 function postRouteDetails( formData ) {
 
 	console.log( formData );
