@@ -15,6 +15,11 @@ document.getElementById("popup-background").addEventListener( "click", function(
 	document.getElementById('popup-container').style.display = 'none';
 });
 
+document.getElementById("accept-btn").addEventListener( "click", function( event ) {
+
+	document.getElementById('popup-container').style.display = 'none';
+
+});
 
 getRouteInfo();
 
@@ -74,7 +79,14 @@ function pageLoad( item_data ) {
 	document.getElementById('popup-time-title').innerHTML 	= '<b>' + time[0] + '</b> - ' + time[1];
 	document.getElementById('popup-line-nr').innerHTML 		= item_data['line'];
 	document.getElementById('popup-route-line').className 	+= ' ' + item_data['line_class'];
-	document.getElementById('popup-alarm-time').innerHTML 	= departure_hours + ':' + departure_minutes;
+	// document.getElementById('popup-alarm-time').innerHTML 	= departure_hours + ':' + departure_minutes;
+
+	var departure_time = new Date();
+
+	departure_time.setHours(departure_hours);
+	departure_time.setMinutes(departure_minutes);
+
+	alarmTimer( departure_time );
 
 	// If you are not gonna be able to make a departure color the walk time title red
 	if ( date.getHours() >= parseInt( departure[0] ) && ( date.getMinutes() + parseInt( item_data['walk_time'] ) ) >= parseInt( departure[1] ) ) 
@@ -87,4 +99,18 @@ function pageLoad( item_data ) {
 }
 
 
+function alarmTimer( departure_time ) {
 
+	setInterval( function() {
+
+		var date = new Date()
+
+		var minutes = Math.floor((departure_time.getTime() - date.getTime()) % (1000 * 60 * 60) / (1000 * 60))
+		var seconds = Math.floor((departure_time.getTime() - date.getTime()) % (1000 * 60) / 1000)
+
+		// Updates timer html element
+		document.getElementById("popup-countdown").innerHTML = minutes + ':' + seconds;
+
+	}, 1000);
+
+}

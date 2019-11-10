@@ -139,6 +139,8 @@ function drawUpcomingItem( trip, key ) {
 // Saves values from specific route item and redirects 
 function routeItemClick( element ) {
 
+	console.log(element)
+
 	// Gets values from hmtl elements and removes spaces and everything between < and >
 	var item_time 	= element.children[1].children[0].innerHTML.trim().replace(/<.*?>/g, '');;
 	var line 		= element.children[1].children[1].innerHTML.trim().replace(/<.*?>/g, '');
@@ -153,6 +155,8 @@ function routeItemClick( element ) {
 
 	fetch( url )
 	.then( function ( data ) {
+		
+		console.log(data)
 
 		window.location.href = './route_info.html';
 
