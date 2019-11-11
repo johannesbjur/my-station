@@ -21,7 +21,7 @@ document.getElementById("from-station").addEventListener( "input", function( eve
 	{
 		startDateFrom = new Date().getTime();
 
-		searchStations( value, 'from' )	
+		searchStations( value, 'from' );
 		
 	}
 	
@@ -95,12 +95,13 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 }, false);
 
 
-
 //  Search functions
 
 function searchStations ( searchstring, input ) {
 
 	var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/typeahead.json?key=9f5d4ac3eab04ffc86d1e7a8fcf14e1a&searchstring=' + searchstring + '&stationsonly=1&maxresults=5';
+
+
 
 	fetch( url )
 	.then( ( resp ) => resp.json() )

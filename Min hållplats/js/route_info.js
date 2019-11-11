@@ -1,6 +1,8 @@
 // Event listener for back button
 document.getElementById("route-info-back-arrow").addEventListener( "click", function( event ) {
 
+	console.log('back')
+
 	window.location.href = './upcoming.html';
 });
 
@@ -68,6 +70,7 @@ function pageLoad( item_data ) {
 		departure_minutes = '0' + departure_minutes;
 	}
 
+
 	// Inserts values from item_data into page html elements
 	document.getElementById('time-title').innerHTML 	= '<b>' + time[0] + '</b> - ' + time[1];
 	document.getElementById('line-nr').innerHTML 		= item_data['line'];
@@ -107,6 +110,11 @@ function alarmTimer( departure_time ) {
 
 		var minutes = Math.floor((departure_time.getTime() - date.getTime()) % (1000 * 60 * 60) / (1000 * 60))
 		var seconds = Math.floor((departure_time.getTime() - date.getTime()) % (1000 * 60) / 1000)
+
+		if ( seconds.toString().length == 1 ) 
+		{
+			seconds = '0' + seconds;
+		}
 
 		// Updates timer html element
 		document.getElementById("popup-countdown").innerHTML = minutes + ':' + seconds;

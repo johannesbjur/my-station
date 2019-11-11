@@ -1,6 +1,8 @@
 // Event listener for back button
 document.getElementById("upcoming-back-arrow").addEventListener( "click", function( event ) {
 
+	console.log("back")
+
 	window.location.href = './index.html';
 });
 
@@ -28,6 +30,14 @@ function getUserData() {
 
 		getUpcoming( data['data'][0] );
 
+
+		// Refresh upcoming every minute
+		setInterval( function() {
+
+			getUpcoming( data['data'][0] );
+
+		}, 60000);
+
 	}).catch( function ( error ) {
 
 		console.log( error );
@@ -46,8 +56,8 @@ function getUpcoming ( user_data ) {
 
 
 	// TODO remove
-	user_data['long'] = '18.065994';
-	user_data['lat'] = '59.315580';
+	// user_data['long'] = '18.065994';
+	// user_data['lat'] = '59.315580';
 
 	if ( ( user_data['long'] || user_data['long'] ) == 'undefined' ) 
 	{
@@ -62,6 +72,8 @@ function getUpcoming ( user_data ) {
 		var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&destId='
 		+ user_data['destId'] + '&originCoordLat=' + user_data['lat'] + '&originCoordLong=' + user_data['long'] + '&originWalk=1&via=vald&viaId=' + user_data['originId'];
 	}
+
+	console.log(url)
 
 	fetch( url )
 	.then( ( resp ) => resp.json() )
@@ -154,9 +166,7 @@ function routeItemClick( element ) {
 	+ route + '&time=' + item_time + '&line=' + line + '&line_class=' + line_class + '&walk_time=' + walk_time;
 
 	fetch( url )
-	.then( function ( data ) {
-		
-		console.log(data)
+	.then( function ( data ) {		
 
 		window.location.href = './route_info.html';
 
