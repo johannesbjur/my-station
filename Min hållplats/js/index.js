@@ -60,6 +60,8 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 
 	for( var i = 0 ; i < elements.length; i++ )
 	{
+
+		console.log(elements[i].name)
 		if ( elements[i].value ) 
 		{
 			switch( elements[i].name )
@@ -77,10 +79,16 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 					formData['destId'] = elements[i].value;
 					break;
 				case 'user-location-long':
-					formData['long'] = elements[i].value;
+					formData['userLong'] = elements[i].value;
 					break;
 				case 'user-location-lat':
-					formData['lat'] = elements[i].value;
+					formData['userLat'] = elements[i].value;
+					break;
+				case 'from-station-long':
+					formData['fromLong'] = elements[i].value;
+					break;
+				case 'from-station-lat':
+					formData['fromLat'] = elements[i].value;
 					break;
 				default:
 					break;
@@ -88,7 +96,6 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 		}
 	}
 
-	console.log(formData['coords'])
 
 	postRouteDetails( formData );
 
@@ -118,6 +125,11 @@ function searchStations ( searchstring, input ) {
 		}
 		else if ( input == 'from' ) 
 		{
+
+			// saves from stations coordinates 
+			document.getElementById('from-station-long').value = data['ResponseData'][0]['lon'];
+			document.getElementById('from-station-lat').value = data['ResponseData'][0]['lat'];
+
 			// hardcoded destination
 			// TODO change to dropdowns
 			document.getElementById("from-station").value 		= data['ResponseData'][0]['Name'];
@@ -152,7 +164,10 @@ function getNearbyStation ( lat, long ) {
 		document.getElementById("user-location-lat").value		= lat;
 		document.getElementById("user-location-long").value		= long;
 
-		return data;
+		document.getElementById("from-station-long").value	= data['stopLocationOrCoordLocation'][0]['StopLocation']['lon'];
+		document.getElementById("from-station-lat").value	= data['stopLocationOrCoordLocation'][0]['StopLocation']['lat'];
+
+		
 
 	}).catch( function ( error ) {
 
@@ -169,7 +184,7 @@ function postRouteDetails( formData ) {
 
 	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com' 
 	+ '&originName=' + formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] 
-	+ '&lat=' + formData['lat']+ '&long=' + formData['long'];
+	+ '&userLat=' + formData['userLat']+ '&userLong=' + formData['userLong'] + '&fromLat=' + formData['fromLat'] + '&fromLong=' + formData['fromLong'];
 
 	console.log( url)
 
@@ -186,3 +201,5 @@ function postRouteDetails( formData ) {
 		console.log( error );
 	});
 }
+
+

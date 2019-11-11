@@ -12,7 +12,7 @@ getUserData();
 // Gets user data from server then calls getUpcoming()
 function getUserData() {
 
-	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/data/bjurstromerjohannes@gmail.com-min_hållplats_user1.json'
+	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/data/bjurstromerjohannes@gmail.com-min_hållplats_user1.json';
 
 	fetch( url )
 	.then( ( resp ) => resp.json() )
@@ -36,6 +36,9 @@ function getUserData() {
 
 			console.log('update')
 
+			// make walk time calc here and pass to upcoming
+			// or make calc in getUpcoming()
+
 			getUpcoming( data['data'][0] );
 
 		}, 60000);
@@ -56,12 +59,14 @@ function getUpcoming ( user_data ) {
 		window.location.href = './index.html';
 	}
 
+	console.log(user_data)
+
 
 	// TODO remove
 	// user_data['long'] = '18.065994';
 	// user_data['lat'] = '59.315580';
 
-	if ( ( user_data['long'] || user_data['long'] ) == 'undefined' ) 
+	if ( ( user_data['userLong'] || user_data['userLat'] ) == 'undefined' ) 
 	{
 
 		// Trip API request without coordinates
@@ -72,7 +77,7 @@ function getUpcoming ( user_data ) {
 	{
 		// Trip API request with coordinates
 		var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&destId='
-		+ user_data['destId'] + '&originCoordLat=' + user_data['lat'] + '&originCoordLong=' + user_data['long'] + '&originWalk=1&via=vald&viaId=' + user_data['originId'];
+		+ user_data['destId'] + '&originCoordLat=' + user_data['userLat'] + '&originCoordLong=' + user_data['userLong'] + '&originWalk=1&via=vald&viaId=' + user_data['originId'];
 	}
 
 	console.log(url)
@@ -116,6 +121,8 @@ function drawUpcomingItem( trip, key ) {
 		}
 		else
 		{
+			console.log(trip)
+			console.log('-')
 			walk_time += parseInt(trip['LegList']['Leg'][i]['duration'].replace(/\D/g,''));
 		}
 	}
@@ -129,6 +136,11 @@ function drawUpcomingItem( trip, key ) {
 	{
 		line_class = 'route-line-red';
 	}
+
+	// realtidsinformation api ? 
+	// calc walk time with distance?
+
+	// travel distance between coordinates
 
 	// Html string for upcoming route item
 	var upcoming_item =
