@@ -34,6 +34,8 @@ function getUserData() {
 		// Refresh upcoming every minute
 		setInterval( function() {
 
+			console.log('update')
+
 			getUpcoming( data['data'][0] );
 
 		}, 60000);
@@ -78,6 +80,9 @@ function getUpcoming ( user_data ) {
 	fetch( url )
 	.then( ( resp ) => resp.json() )
 	.then( function ( data ) {
+
+		document.getElementById('route-item-container').innerHTML = '';
+
 
 		// Loops through route item data and draws route items
 		for( var i = 0 ; i < data['Trip'].length; i++ )
@@ -145,8 +150,9 @@ function drawUpcomingItem( trip, key ) {
 
 	// Adds upcoming route item string to html element
 	document.getElementById('route-item-container').innerHTML += upcoming_item;
-}
+	
 
+}
 
 // Saves values from specific route item and redirects 
 function routeItemClick( element ) {
