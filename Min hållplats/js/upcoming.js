@@ -36,9 +36,6 @@ function getUserData() {
 
 			console.log('update')
 
-			// make walk time calc here and pass to upcoming
-			// or make calc in getUpcoming()
-
 			getUpcoming( data['data'][0] );
 
 		}, 60000);
@@ -63,12 +60,11 @@ function getUpcoming ( user_data ) {
 
 
 	// TODO remove
-	// user_data['long'] = '18.065994';
-	// user_data['lat'] = '59.315580';
+	// user_data['userLong'] = '18.065994';
+	// user_data['userLat'] = '59.315580';
 
 	if ( ( user_data['userLong'] || user_data['userLat'] ) == 'undefined' ) 
 	{
-
 		// Trip API request without coordinates
 		var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/TravelplannerV3_1/trip.json?key=5a29ea3c0cf64b01ba02a0add5e4784a&originExtId=' 
 		+ user_data['originId'] + '&destExtId=' + user_data['destId'];
@@ -80,6 +76,10 @@ function getUpcoming ( user_data ) {
 		+ user_data['destId'] + '&originCoordLat=' + user_data['userLat'] + '&originCoordLong=' + user_data['userLong'] + '&originWalk=1&via=vald&viaId=' + user_data['originId'];
 	}
 
+	var km = distance( user_data['userLat'], user_data['userLong'], user_data['fromLat'], user_data['fromLong'] );
+	var walk_time =  Math.round( (720 * km)  / 60);
+
+	console.log( walk_time )
 	console.log(url)
 
 	fetch( url )
@@ -88,11 +88,10 @@ function getUpcoming ( user_data ) {
 
 		document.getElementById('route-item-container').innerHTML = '';
 
-
 		// Loops through route item data and draws route items
 		for( var i = 0 ; i < data['Trip'].length; i++ )
 		{
-			drawUpcomingItem( data['Trip'][i], i );
+			drawUpcomingItem( data['Trip'][i], i, walk_time );
 		}
 		
 		// Changes background height depending on upcoming-card div
@@ -106,10 +105,10 @@ function getUpcoming ( user_data ) {
 
 
 // Draws an upcoming route item
-function drawUpcomingItem( trip, key ) {
+function drawUpcomingItem( trip, key, walk_time ) {
 
 	var route = '';
-	var walk_time = 0;
+	// var walk_time = 0;
 	var line_class = '';
 
 	// Looping through trip items to sort out the walking items 
@@ -123,7 +122,7 @@ function drawUpcomingItem( trip, key ) {
 		{
 			console.log(trip)
 			console.log('-')
-			walk_time += parseInt(trip['LegList']['Leg'][i]['duration'].replace(/\D/g,''));
+			// walk_time += parseInt(trip['LegList']['Leg'][i]['duration'].replace(/\D/g,''));
 		}
 	}
 
@@ -136,11 +135,6 @@ function drawUpcomingItem( trip, key ) {
 	{
 		line_class = 'route-line-red';
 	}
-
-	// realtidsinformation api ? 
-	// calc walk time with distance?
-
-	// travel distance between coordinates
 
 	// Html string for upcoming route item
 	var upcoming_item =
@@ -193,4 +187,24 @@ function routeItemClick( element ) {
 		console.log( error );
 	});
 
+}
+
+
+
+// Calculates distance between 2 sets of coordinates
+// Returns in kilometers
+function distance( lat1, lon1, lat2, lon2 ) {
+
+    var radlat1 = Math.PI * lat1/180
+    var radlat2 = Math.PI * lat2/180
+    var radlon1 = Math.PI * lon1/180
+    var radlon2 = Math.PI * lon2/180
+    var theta = lon1-lon2
+    var radtheta = Math.PI * theta/180
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180/Math.PI
+    dist = dist * 60 * 1.1515
+
+    return dist * 1.609344
 }

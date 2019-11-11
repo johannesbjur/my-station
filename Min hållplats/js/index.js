@@ -127,8 +127,8 @@ function searchStations ( searchstring, input ) {
 		{
 
 			// saves from stations coordinates 
-			document.getElementById('from-station-long').value = data['ResponseData'][0]['lon'];
-			document.getElementById('from-station-lat').value = data['ResponseData'][0]['lat'];
+			document.getElementById('from-station-long').value = data['ResponseData'][0]['X'].slice(0, 2) + '.' + data['ResponseData'][0]['X'].slice(2);
+			document.getElementById('from-station-lat').value = data['ResponseData'][0]['Y'].slice(0, 2) + '.' + data['ResponseData'][0]['Y'].slice(2);
 
 			// hardcoded destination
 			// TODO change to dropdowns
