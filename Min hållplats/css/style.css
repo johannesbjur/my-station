@@ -196,6 +196,35 @@ body {
 	margin-left: 20px;
 }
 
+.autocomplete {
+	text-align: left;
+	position: absolute;
+	background: #fff;
+	/*border-bottom: 1px solid #B2B2B2;*/
+	/*border-radius: 0 0 20px 20px;*/
+    
+    width: inherit;
+    z-index: 200;
+
+}
+
+.auto-item {
+	border-left: 1px solid #B2B2B2;
+	border-right: 1px solid #B2B2B2;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    padding-bottom: 3vw;
+	padding-top: 3vw;
+	border-bottom: 1px solid #B2B2B2;
+}
+
+.auto-item p {
+	margin: 0;
+	font-size: 14px;
+	color: #000;
+} 
+
+
 
 /*   Upcoming page   */
 .upcoming-title {

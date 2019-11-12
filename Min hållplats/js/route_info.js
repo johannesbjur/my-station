@@ -92,7 +92,7 @@ function pageLoad( item_data ) {
 	alarmTimer( departure_time );
 
 	// If you are not gonna be able to make a departure color the walk time title red
-	if ( date.getHours() >= parseInt( departure[0] ) && ( date.getMinutes() + parseInt( item_data['walk_time'] ) ) >= parseInt( departure[1] ) ) 
+	if ( date.getHours() >= parseInt( departure[0] ) && ( date.getMinutes() + parseInt( item_data['walk_time'] ) ) >= parseInt( departure[1] ) || item_data['walk_time'] === 'NaN' ) 
 	{
 		document.getElementById('walk-time-title').style.color = '#FF4A4A';
 		// disable activate btn

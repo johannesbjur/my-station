@@ -99,7 +99,18 @@ document.getElementById("icon-location").addEventListener( "click", function( ev
 
 
 
-// getUserLocation();
+
+var auto_elements = document.getElementsByClassName('autocomplete');
+
+for ( var i = 0; i < auto_elements.length; i++) 
+{
+	auto_elements[i].style.width 	= document.getElementById('from-input-container').offsetWidth + 'px';
+	auto_elements[i].style.display 	= 'none';
+
+}
+
+
+getUserLocation();
 
 // Gets user location
 function getUserLocation() {
@@ -112,13 +123,38 @@ function getUserLocation() {
 	);
 }
 
+function selectAutoItem( item, input ) {
+
+	console.log(item.children)
+
+	if ( input === 'from' ) 
+	{
+		document.getElementById("from-station").value 		= item.children[0].innerHTML;
+		document.getElementById("from-station-id").value 	= item.children[1].value;
+
+
+		document.getElementById("from-station-lat").value 	= item.children[2].value;
+		document.getElementById("from-station-long").value 	= item.children[3].value;
+
+		document.getElementById("from-auto").style.display 	= 'none';
+		document.getElementById("from-input-container").style.borderRadius = '20px';
+	}
+	else if ( input === 'to' ) 
+	{
+		document.getElementById("to-station").value 		= item.children[0].innerHTML;
+		document.getElementById("to-station-id").value 	= item.children[1].value;
+
+		document.getElementById("to-auto").style.display 	= 'none';
+		document.getElementById("to-input-container").style.borderRadius = '20px';
+	}
+}
+
 
 //  Search functions
 
 function searchStations ( searchstring, input ) {
 
-	var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/typeahead.json?key=9f5d4ac3eab04ffc86d1e7a8fcf14e1a&searchstring=' + searchstring + '&stationsonly=1&maxresults=5';
-
+	var url = 'https://cors-anywhere.herokuapp.com/https://api.sl.se/api2/typeahead.json?key=9f5d4ac3eab04ffc86d1e7a8fcf14e1a&searchstring=' + searchstring + '&stationsonly=1&maxresults=3';
 
 
 	fetch( url )
@@ -129,24 +165,61 @@ function searchStations ( searchstring, input ) {
 
 		if ( input == 'to' ) 
 		{
-			// hardcoded destination
-			// TODO change to dropdowns
-			document.getElementById("to-station").value 	= data['ResponseData'][0]['Name'];
-			document.getElementById("to-station-id").value 	= data['ResponseData'][0]['SiteId'];
+			// Clear and add styles to auto complete div
+			document.getElementById('to-auto').innerHTML = '';
+			document.getElementById('to-input-container').style.borderRadius  = '20px 20px 0 0';
+			document.getElementById('to-auto').style.display = 'block';
+
+			console.log ( data['ResponseData'])
+
+			for ( var i = 0; i < data['ResponseData'].length; i++ ) 
+			{
+				var last_style = '';
+				if ( i == data['ResponseData'].length - 1 ) 
+				{
+					last_style = 'style="border-radius: 0 0 20px 20px;"'
+				}
+				
+
+				document.getElementById('to-auto').innerHTML += 
+					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'to\')">\
+						<p>' + data['ResponseData'][i]['Name'] + '</p>\
+						<input id="auto-item-id-' + i + '" type="hidden" name="auto-item-id-' + i + '" value="' + data['ResponseData'][i]['SiteId'] + '">\
+						<input id="auto-item-lat-' + i + '" name="auto-item-lat-' + i + '" type="hidden" value="' + data['ResponseData'][i]['Y'] + '">\
+						<input id="auto-item-long-' + i + '" name="auto-item-long-' + i + '" type="hidden" value="' + data['ResponseData'][i]['X'] + '">\
+					</div>';
+			}
+
 		}
 		else if ( input == 'from' ) 
 		{
-
 			// saves from stations coordinates 
 			document.getElementById('from-station-long').value = data['ResponseData'][0]['X'].slice(0, 2) + '.' + data['ResponseData'][0]['X'].slice(2);
 			document.getElementById('from-station-lat').value = data['ResponseData'][0]['Y'].slice(0, 2) + '.' + data['ResponseData'][0]['Y'].slice(2);
 
-			// hardcoded destination
-			// TODO change to dropdowns
-			document.getElementById("from-station").value 		= data['ResponseData'][0]['Name'];
-			document.getElementById("from-station-id").value 	= data['ResponseData'][0]['SiteId'];
-		}
+			// Clear and add styles to auto complete div
+			document.getElementById('from-auto').innerHTML = '';
+			document.getElementById('from-input-container').style.borderRadius  = '20px 20px 0 0';
+			document.getElementById('from-auto').style.display = 'block';
 
+			for ( var i = 0; i < data['ResponseData'].length; i++ ) 
+			{
+				var last_style = '';
+				if ( i == data['ResponseData'].length - 1 ) 
+				{
+					last_style = 'style="border-radius: 0 0 20px 20px;"'
+				}
+				
+
+				document.getElementById('from-auto').innerHTML += 
+					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'from\')">\
+						<p>' + data['ResponseData'][i]['Name'] + '</p>\
+						<input id="auto-item-id-' + i + '" type="hidden" name="auto-item-id-' + i + '" value="' + data['ResponseData'][i]['SiteId'] + '">\
+						<input id="auto-item-lat-' + i + '" name="auto-item-lat-' + i + '" type="hidden" value="' + data['ResponseData'][i]['Y'] + '">\
+						<input id="auto-item-long-' + i + '" name="auto-item-long-' + i + '" type="hidden" value="' + data['ResponseData'][i]['X'] + '">\
+					</div>';
+			}
+		}
 
 	}).catch( function ( error ) {
 

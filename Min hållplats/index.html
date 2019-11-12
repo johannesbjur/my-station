@@ -40,13 +40,18 @@
 
 							<label class="index-label">Från:</label>
 
-							<div class="input-container">
+							<div id="from-input-container" class="input-container">
 								<input id="from-station" class="index-input" name="from-station" type="text" placeholder="Mariatorget" required>
+
 								<input id="from-station-id" name="from-station-id" type="hidden">
 								<input id="from-station-lat" name="from-station-lat" type="hidden">
 								<input id="from-station-long" name="from-station-long" type="hidden">
 								<img id="icon-location" class="input-icon" src="img/ic_my_location.svg">
 							</div>
+							<div id="from-auto" class="autocomplete">
+
+							</div>
+
 
 						</div>
 
@@ -54,11 +59,16 @@
 
 							<label class="index-label">Till:</label>
 
-							<div class="input-container">
+							<div id="to-input-container" class="input-container">
 								
 								<input id="to-station" class="index-input" name="to-station" type="text" placeholder="Liljeholmen" required>
+
+
 								<input id="to-station-id" name="to-station-id" type="hidden">
 								<img id="icon-map" class="input-icon" src="img/ic_map.svg">
+							</div>
+							<div id="to-auto" class="autocomplete">
+
 							</div>
 
 						</div>
