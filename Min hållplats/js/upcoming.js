@@ -3,7 +3,23 @@ document.getElementById("upcoming-back-arrow").addEventListener( "click", functi
 
 	console.log("back")
 
-	window.location.href = './index.html';
+
+	// Clear user data
+	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&remember=0';
+
+	fetch( url )
+	.then( function ( resp ) {
+
+		console.log( resp )
+
+		window.location.href = './index.html';
+
+
+	}).catch( function ( error ) {
+
+		console.log( error );
+	});
+
 });
 
 getUserData();
