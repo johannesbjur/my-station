@@ -1,12 +1,3 @@
-// Gets user location
-navigator.geolocation.getCurrentPosition(
-	function ( position ) {
-
-		getNearbyStation( position.coords['latitude'], position.coords['longitude'] );
-	}
-);
-
-
 var startDateFrom = 0;
 
 // Search input event listener for origin
@@ -27,9 +18,6 @@ document.getElementById("from-station").addEventListener( "input", function( eve
 	
 
 }, false);
-
-
-
 
 var startDateTo = 0;
 
@@ -60,8 +48,6 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 
 	for( var i = 0 ; i < elements.length; i++ )
 	{
-
-		console.log(elements[i].name)
 		if ( elements[i].value ) 
 		{
 			switch( elements[i].name )
@@ -90,6 +76,9 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 				case 'from-station-lat':
 					formData['fromLat'] = elements[i].value;
 					break;
+				case 'remember-checkbox':
+					formData['remember'] = elements[i].checked;
+					break;
 				default:
 					break;
 			}
@@ -100,6 +89,28 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 	postRouteDetails( formData );
 
 }, false);
+
+
+document.getElementById("icon-location").addEventListener( "click", function( event ) {
+
+	getUserLocation();
+
+}, false);
+
+
+
+// getUserLocation();
+
+// Gets user location
+function getUserLocation() {
+
+	navigator.geolocation.getCurrentPosition(
+		function ( position ) {
+
+			getNearbyStation( position.coords['latitude'], position.coords['longitude'] );
+		}
+	);
+}
 
 
 //  Search functions
@@ -182,9 +193,18 @@ function postRouteDetails( formData ) {
 
 	console.log( formData );
 
+	if ( formData['remember'] ) 
+	{
+		formData['remember'] = 1;
+	}
+	else
+	{
+		formData['remember'] = 0;
+	}
+
 	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com' 
 	+ '&originName=' + formData['originName'] + '&originId=' + formData['originId'] + '&destName=' + formData['destName'] + '&destId=' + formData['destId'] 
-	+ '&userLat=' + formData['userLat']+ '&userLong=' + formData['userLong'] + '&fromLat=' + formData['fromLat'] + '&fromLong=' + formData['fromLong'];
+	+ '&userLat=' + formData['userLat']+ '&userLong=' + formData['userLong'] + '&fromLat=' + formData['fromLat'] + '&fromLong=' + formData['fromLong'] + '&remember=' + formData['remember'];
 
 	console.log( url)
 
