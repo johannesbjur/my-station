@@ -5,7 +5,7 @@ fetch( url )
 .then( ( resp ) => resp.json() )
 .then( function ( data ) {
 
-	if ( data['data'][0]['remember'] == 1 && ( data['data'][0]['originId'] || data['data'][0]['destId'] ) !== 'undefined' ) 
+	if ( (data['data'][0]['remember'] == '1' || data['data'][0]['remember'] == 1) && ( data['data'][0]['originId'] || data['data'][0]['destId'] ) !== 'undefined' ) 
 	{
 		window.location.href = './upcoming.html';
 	}
