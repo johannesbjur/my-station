@@ -185,14 +185,14 @@ function searchStations ( searchstring, input ) {
 					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'to\')">\
 						<p>' + data['ResponseData'][i]['Name'] + '</p>\
 						<input id="auto-item-id-' + i + '" type="hidden" name="auto-item-id-' + i + '" value="' + data['ResponseData'][i]['SiteId'] + '">\
-						<input id="auto-item-lat-' + i + '" name="auto-item-lat-' + i + '" type="hidden" value="' + data['ResponseData'][i]['Y'] + '">\
-						<input id="auto-item-long-' + i + '" name="auto-item-long-' + i + '" type="hidden" value="' + data['ResponseData'][i]['X'] + '">\
 					</div>';
 			}
 
 		}
 		else if ( input == 'from' ) 
 		{
+			console.log(data['ResponseData'])
+
 			// saves from stations coordinates 
 			document.getElementById('from-station-long').value = data['ResponseData'][0]['X'].slice(0, 2) + '.' + data['ResponseData'][0]['X'].slice(2);
 			document.getElementById('from-station-lat').value = data['ResponseData'][0]['Y'].slice(0, 2) + '.' + data['ResponseData'][0]['Y'].slice(2);
@@ -215,8 +215,8 @@ function searchStations ( searchstring, input ) {
 					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'from\')">\
 						<p>' + data['ResponseData'][i]['Name'] + '</p>\
 						<input id="auto-item-id-' + i + '" type="hidden" name="auto-item-id-' + i + '" value="' + data['ResponseData'][i]['SiteId'] + '">\
-						<input id="auto-item-lat-' + i + '" name="auto-item-lat-' + i + '" type="hidden" value="' + data['ResponseData'][i]['Y'] + '">\
-						<input id="auto-item-long-' + i + '" name="auto-item-long-' + i + '" type="hidden" value="' + data['ResponseData'][i]['X'] + '">\
+						<input id="auto-item-lat-' + i + '" name="auto-item-lat-' + i + '" type="hidden" value="' + data['ResponseData'][i]['Y'].slice(0, 2) + '.' + data['ResponseData'][0]['Y'].slice(2) + '">\
+						<input id="auto-item-long-' + i + '" name="auto-item-long-' + i + '" type="hidden" value="' + data['ResponseData'][i]['X'].slice(0, 2) + '.' + data['ResponseData'][0]['X'].slice(2) + '">\
 					</div>';
 			}
 		}
