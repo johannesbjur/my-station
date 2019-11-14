@@ -82,7 +82,6 @@ function pageLoad( item_data ) {
 	document.getElementById('popup-time-title').innerHTML 	= '<b>' + time[0] + '</b> - ' + time[1];
 	document.getElementById('popup-line-nr').innerHTML 		= item_data['line'];
 	document.getElementById('popup-route-line').className 	+= ' ' + item_data['line_class'];
-	// document.getElementById('popup-alarm-time').innerHTML 	= departure_hours + ':' + departure_minutes;
 
 	var departure_time = new Date();
 
@@ -103,6 +102,7 @@ function pageLoad( item_data ) {
 
 
 function alarmTimer( departure_time ) {
+
 
 	setInterval( function() {
 

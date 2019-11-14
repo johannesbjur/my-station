@@ -46,6 +46,8 @@ document.getElementById("index-form").addEventListener( "submit", function( even
 	var elements = document.getElementById("index-form").elements;
 	var formData = {};
 
+
+	// Loops through elements in form and saves values to formData
 	for( var i = 0 ; i < elements.length; i++ )
 	{
 		if ( elements[i].value ) 
@@ -181,6 +183,7 @@ function searchStations ( searchstring, input ) {
 				}
 				
 
+				// Writes autocomplete items
 				document.getElementById('to-auto').innerHTML += 
 					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'to\')">\
 						<p>' + data['ResponseData'][i]['Name'] + '</p>\
@@ -211,6 +214,7 @@ function searchStations ( searchstring, input ) {
 				}
 				
 
+				// Writes autocomplete items
 				document.getElementById('from-auto').innerHTML += 
 					'<div class="auto-item" ' + last_style + ' onclick="selectAutoItem(this, \'from\')">\
 						<p>' + data['ResponseData'][i]['Name'] + '</p>\
