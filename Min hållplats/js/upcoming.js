@@ -4,7 +4,7 @@ document.getElementById("upcoming-back-arrow").addEventListener( "click", functi
 	console.log("back")
 
 
-	// Clear user data
+	// Clear user data before redirect
 	var url = 'https://cors-anywhere.herokuapp.com/http://primat.se/services/sendform.aspx?xid=min_h%C3%A5llplats_user1&xmail=bjurstromerjohannes@gmail.com&remember=0';
 
 	fetch( url )
@@ -66,18 +66,10 @@ function getUserData() {
 // Gets upcoming routes with user data from index.html as user1
 function getUpcoming ( user_data ) {
 
-	// TODO better check
 	if ( ( user_data['originId'] || user_data['destId'] ) == 'undefined') 
 	{
 		window.location.href = './index.html';
 	}
-
-	console.log(user_data)
-
-
-	// TODO remove
-	// user_data['userLong'] = '18.065994';
-	// user_data['userLat'] = '59.315580';
 
 	if ( ( user_data['userLong'] || user_data['userLat'] ) == 'undefined' ) 
 	{
@@ -94,9 +86,6 @@ function getUpcoming ( user_data ) {
 
 	var km = distance( user_data['userLat'], user_data['userLong'], user_data['fromLat'], user_data['fromLong'] );
 	var walk_time =  Math.round( (720 * km)  / 60);
-
-	console.log( walk_time )
-	console.log(url)
 
 	fetch( url )
 	.then( ( resp ) => resp.json() )
@@ -127,18 +116,11 @@ function drawUpcomingItem( trip, key, walk_time ) {
 	// var walk_time = 0;
 	var line_class = '';
 
-	// Looping through trip items to sort out the walking items 
 	for ( var i = 0 ; i < trip['LegList']['Leg'].length; i++ ) 
 	{
 		if ( trip['LegList']['Leg'][i]['type'] !== 'WALK' ) 
 		{
 			route = trip['LegList']['Leg'][i]
-		}
-		else
-		{
-			console.log(trip)
-			console.log('-')
-			// walk_time += parseInt(trip['LegList']['Leg'][i]['duration'].replace(/\D/g,''));
 		}
 	}
 
